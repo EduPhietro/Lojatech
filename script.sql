@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS client (
+	id_cliente INT GENERATED ALWAYS AS IDENTITY,
+	nome VARCHAR(100) NOT NULL,
+	email VARCHAR(150) NOT NULL UNIQUE,
+	telefone  VARCHAR(20) NULL,
+	data_nascimento DATE NULL,
+	cidade VARCHAR(80) NULL,
+	data_cadastro TIMESTAMP DEFAULT  now()
+);
