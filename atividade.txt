@@ -1,0 +1,35 @@
+3. Classifique os comandos abaixo em DDL, DML ou DQL: CREATE DATABASE lojatech: DDL; CREATE TABLE clientes (...): DDL;
+	INSERT INTO clientes (...): DML;
+	SELECT * FROM clientes: DQL;
+	UPDATE clientes SET ...: DML;
+	DELETE FROM clientes ...: DML;
+	ALTER TABLE clientes ...: DDL;
+	DROP TABLE clientes: DDL;
+
+5. Escolha o tipo de dado mais adequado para cada atributo e justifique sua escolha.
+	Atributo			Tipo mais Adequado	Justificativa		
+	Código do cliente		INT/UUID		Pode ser representado por um ID sequencial inteiro, ou um HASH UUID para evitar colisões em bancos distribuídos.
+	Nome do cliente			VARCHAR(N)		Pode ser uma String de tamanho variável.
+	E-mail				VARCHAR(N)		Pode ser uma String de tamanho variável.
+	Data de nascimento		DATE			Tipo de dado usado para representar datas no formato ISO 8601'YYYY-MM-DD'.
+	CPF				CHAR(11)		Tipo de atributo que segue uma regra de negócio de String de tamanho fixo. 
+	Preço unitário			NUMERIC(10,2)		Tipo de atributo que pode ser representado na ordem de grandeza de 10 casas antes da vírgula  e precisão de 2 dígitos.
+	Quantidade em estoque		NUMERIC(10,2) 		Tipo de dado que pode ser representado em ordem de grandeza de 10 casas antes da vírgula e precisão de 2 dígitos.
+	Descrição longa do produto	TEXT / VARCHAR(500)	Pode-se utilizar um VARCHAR com quantidade longa de caracteres ou TEXT para textos longos.
+	Situação do pedido (ATIVO	VARCHAR(20) 		Pode-se utilizar um VARCHAR(20) para otimização da memória e utilizar CHECK como constraint para garantir a integridade da 
+	ou CANCELADO)						informação.
+	Data e hora do pedido		TIMESTAMP 		Tipo de dado utilizado para representar DATA e HORA no formato ISO 8601 'YYYY-MM-DDTHH:MM:SS.MS'.
+
+6. Explique a diferença entre:
+	a) CHAR e VARCHAR: CHAR aloca o espaço definido pelo limite * o tamanho do caractere que é 1byte, já o VARCHAR aloca dinamicamente o tamanho, mas limita o tamanho ao limite;
+	b) INT e DECIMAL/NUMERIC: INT representa o conjunto dos números inteiros, o DECIMAL/NUMERIC são supostamente a mesma coisa, representam o conjunto dos Decimais; DECIMAL é alias de NUMERIC;
+	c) DATE, TIME e TIMESTAMP: DATE armazena apenas datas no formato ISO 8601; TIME armazena horas e frações de horas no formato ISO 8601, TIMESTAMP armazena DATA e HORA no formato ISO 8601;
+
+	d) NULL e vazio (""): NULL representa ausencia total de valor ou referência enquanto uma String vazia é um dado armazenado válido;
+
+7. Justifique por que não é recomendado utilizar o tipo FLOAT para armazenar valores monetários
+em sistemas comerciais.
+	R: FLOAT é um tipo de dado utilizado para representar dados no formato decimal, regulamentado pela IEEE 754, entretanto ele tem um tamanho limitado para representar dados decimais, 
+	o FLOAT pode representar dados de até 32 bits, sendo 1 bit para representar a sua posição na reta numérica, negativo ou positivo, 8 bits para representar um exponente e 23 bits
+	para representar  a fração; todos os números são representados na base 2; Não é possível representar valores monetários porque dízimas periódicas não cabem, ou valores decimais muito pequenos não podem ser representados. como o 0.3.
+
