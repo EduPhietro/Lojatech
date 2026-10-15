@@ -94,3 +94,44 @@ VALUES
 	(2, 4, 2, 320.00), -- Pedido 2: 2 Headsets Gamer
 	(3, 5, 3, 480.00); -- Pedido 3: 3 SSDs de 1 TB
 
+-- CONSULTAS COM DQL (Data Query Language)
+-- 21) Retorne todos os dados de todos os clientes
+
+SELECT * FROM clientes;
+
+SELECT nome, email, cidade FROM clientes;
+
+SELECT * FROM produtos p 
+	WHERE p.categoria    = 'Periférico';
+
+
+SELECT * FROM produtos p 
+	WHERE p.preco_unitario   > 300.00;
+
+
+SELECT * FROM produtos p 
+	WHERE p.estoque    < 20;
+
+SELECT * FROM clientes c
+	WHERE c.cidade = 'Belém'
+	ORDER BY c.nome ASC;
+
+SELECT * FROM produtos p
+	ORDER BY p.preco_unitario DESC
+	LIMIT  3;
+
+SELECT * FROM produtos p 
+	WHERE p.nome_produto  LIKE '%Mouse%';
+
+
+
+SELECT * FROM clientes c   
+	WHERE	c.nome     LIKE 'A%'; 
+		
+
+SELECT * FROM produtos p 
+	WHERE p.categoria    = 'Periférico' 
+	OR p.categoria  = 'Áudio';
+
+SELECT * FROM produtos p 
+	WHERE  p.preco_unitario  BETWEEN  100.00 AND 500.00;
