@@ -135,3 +135,19 @@ SELECT * FROM produtos p
 
 SELECT * FROM produtos p 
 	WHERE  p.preco_unitario  BETWEEN  100.00 AND 500.00;
+
+SELECT * FROM produtos p  
+	WHERE p.estoque  < 20 AND p.preco_unitario  > 200.0;
+
+
+SELECT * FROM clientes c
+	WHERE c.cidade IN ('Belém', 'Santarém');
+
+SELECT * FROM pedidos p 
+	WHERE p.status  IN ('ABERTO', 'PAGO');
+
+
+SELECT * FROM clientes c 
+	WHERE  c.telefone  IS NULL;
+	
+

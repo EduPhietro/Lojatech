@@ -282,3 +282,52 @@ em sistemas comerciais.
 		|4         |Headset Gamer   |Áudio        |320           |25     |         |true |
 		|5         |SSD 1 TB        |Armazenamento|480           |40     |         |true |
 
+33. Retorne os produtos com estoque menor que 20 unidades e preço maior que R$ 200,00.
+	Consulta:
+		SELECT * FROM produtos p  
+			WHERE p.estoque  < 20 AND p.preco_unitario  > 200.0;
+	Output:
+		|id_produto|nome_produto|categoria|preco_unitario|estoque|descricao|ativo|
+		|----------|------------|---------|--------------|-------|---------|-----|
+		|3         |Monitor 24" |Monitores|850           |15     |         |true |
+
+
+
+34. Retorne os clientes das cidades de Belém ou Santarém.
+	
+	Consulta:
+		SELECT * FROM clientes c
+			WHERE c.cidade IN ('Belém', 'Santarém');
+	Output:
+		|id_cliente|nome        |email          |telefone|data_nascimento|cidade  |data_cadastro          |
+		|----------|------------|---------------|--------|---------------|--------|-----------------------|
+		|1         |Ana Souza   |ana@gmail.com  |        |               |Belém   |2026-10-12 20:56:36.702|
+		|2         |Bruno Lima  |bruno@gmail.com|        |               |Santarém|2026-10-12 20:56:36.702|
+		|3         |Carla Mendes|carla@gmail.com|        |               |Belém   |2026-10-12 20:56:36.702|
+
+
+35. Retorne os clientes das cidades de Belém ou Santarém.
+	Consulta:
+		SELECT * FROM pedidos p 
+			WHERE p.status  IN ('ABERTO', 'PAGO');
+	Output:
+
+		|id_pedido|id_cliente|data_pedido            |status|valor_total|
+		|---------|----------|-----------------------|------|-----------|
+		|1        |1         |2026-10-12 20:56:36.702|PAGO  |0          |
+		|2        |2         |2026-10-12 20:56:36.702|ABERTO|0          |
+		|3        |3         |2026-10-12 20:56:36.702|PAGO  |0          |
+
+36. Retorne os clientes que não possuem telefone cadastrado.
+	Consulta:
+		SELECT * FROM clientes c 
+			WHERE  c.telefone  IS NULL;
+	Output:
+		|id_cliente|nome        |email          |telefone|data_nascimento|cidade  |data_cadastro          |
+		|----------|------------|---------------|--------|---------------|--------|-----------------------|
+		|1         |Ana Souza   |ana@gmail.com  |        |               |Belém   |2026-10-12 20:56:36.702|
+		|2         |Bruno Lima  |bruno@gmail.com|        |               |Santarém|2026-10-12 20:56:36.702|
+		|3         |Carla Mendes|carla@gmail.com|        |               |Belém   |2026-10-12 20:56:36.702|
+		|4         |Diego Alves |diego@gmail.com|        |               |Marabá  |2026-10-12 20:56:36.702|
+	
+
