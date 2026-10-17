@@ -385,3 +385,70 @@ em sistemas comerciais.
 	Output:
 		Nenhum dado foi retornado pois não há nenhum registro em que o atributo email termine com email.com.
 
+
+41. Atualize o preço do produto Mouse Sem Fio para R$ 95.00.
+	Consulta:
+		
+		UPDATE   produtos 
+			SET 
+				preco_unitario = 95.00
+				WHERE id_produto = 2;
+
+42. Aumente em 10% o preço de todos os produtos da categoria periféricos.
+	Consulta:
+		
+		UPDATE   produtos 
+			SET 
+				preco_unitario = preco_unitario * 1.1
+			WHERE categoria = 'Periférico'
+			RETURNING *;
+43. Reduza em 5 unidades o estoque do produto Monitor 24".
+	Consulta:
+		
+		UPDATE   produtos 
+			SET 
+				estoque = estoque - 5
+			WHERE id_produto  = 3
+			RETURNING *;
+
+44. Atualize o status do pedido 2 para PAGO.
+	Consulta:
+
+		UPDATE pedidos 	
+			SET
+				status = 'PAGO'
+			WHERE id_pedido = 2
+			RETURNING *;
+
+
+45. Atualize a cidade do cliente Diego Alves para Ananideua.
+	Consulta:
+		UPDATE clientes
+			SET cidade  = 'Ananideua'
+			WHERE nome  = 'Diego Alves'
+			RETURNING *;
+
+46. Exclua o item do pedido 3 referente ao produto SSD 1 TB.
+	Nesta consulta em específica, foi utilizada uma subquery para excluir por um atributo que é dependente funcional de id_produto apenas.
+	Consulta:
+		DELETE  FROM itens_pedido  
+		WHERE id_produto  IN (
+			SELECT p.id_produto  FROM produtos p 
+			WHERE p.nome_produto = 'SSD 1 TB'
+		);
+
+
+47. Exclua todos os pedidos com status CANCELADO.
+	Consulta:
+		DELETE  FROM pedidos   
+			WHERE status  = 'CANCELADO';
+
+48. Exclua o cliente de id_cliente = 4, desde que ele não possua pedidos.
+	Consulta:
+		DELETE FROM clientes
+		WHERE id_cliente = 2
+		  AND (
+		      SELECT COUNT(*)
+		      FROM pedidos p 
+		      WHERE p.id_cliente = clientes.id_cliente
+		  ) = 0;

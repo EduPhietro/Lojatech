@@ -167,3 +167,56 @@ SELECT *,
 		WHEN preco_unitario > 500 THEN 'Caro'
 	END AS classificacao_preco
 FROM produtos p;
+
+
+
+
+
+UPDATE   produtos 
+	SET 
+		preco_unitario = 95.00
+	WHERE id_produto = 2;
+
+
+UPDATE   produtos 
+	SET 
+		preco_unitario = preco_unitario * 1.1
+	WHERE categoria = 'Periférico'
+	RETURNING *;
+
+
+UPDATE   produtos 
+	SET 
+		estoque = estoque - 5
+	WHERE id_produto  = 3
+	RETURNING *;
+
+
+UPDATE pedidos 	
+	SET
+		status = 'PAGO'
+	WHERE id_pedido = 2
+	RETURNING *;
+
+
+UPDATE clientes
+	SET cidade  = 'Ananideua'
+	WHERE nome  = 'Diego Alves'
+	RETURNING *;
+
+DELETE  FROM itens_pedido  
+	WHERE id_produto  IN (
+		SELECT p.id_produto  FROM produtos p 
+		WHERE p.nome_produto = 'SSD 1 TB'
+);
+
+DELETE  FROM pedidos   
+	WHERE status  = 'CANCELADO';
+
+DELETE FROM clientes
+WHERE id_cliente = 2
+  AND (
+      SELECT COUNT(*)
+      FROM pedidos p 
+      WHERE p.id_cliente = clientes.id_cliente
+  ) = 0;
