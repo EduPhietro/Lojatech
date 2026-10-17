@@ -318,7 +318,24 @@ em sistemas comerciais.
 		|2        |2         |2026-10-12 20:56:36.702|ABERTO|0          |
 		|3        |3         |2026-10-12 20:56:36.702|PAGO  |0          |
 
-36. Retorne os clientes que não possuem telefone cadastrado.
+
+
+36. Retorne os produtos que não pertencem à categoria Monitores.
+
+	Consulta:
+		SELECT * FROM produtos p 
+			WHERE p.categoria  <> 'Monitores';
+	Output:
+		|id_produto|nome_produto    |categoria    |preco_unitario|estoque|descricao|ativo|
+		|----------|----------------|-------------|--------------|-------|---------|-----|
+		|1         |Teclado Mecânico|Periférico   |250           |30     |         |true |
+		|2         |Mouse Sem Fio   |Periférico   |90            |50     |         |true |
+		|4         |Headset Gamer   |Áudio        |320           |25     |         |true |
+		|5         |SSD 1 TB        |Armazenamento|480           |40     |         |true |
+
+		
+
+37. Retorne os clientes que não possuem telefone cadastrado.
 	Consulta:
 		SELECT * FROM clientes c 
 			WHERE  c.telefone  IS NULL;
@@ -329,5 +346,42 @@ em sistemas comerciais.
 		|2         |Bruno Lima  |bruno@gmail.com|        |               |Santarém|2026-10-12 20:56:36.702|
 		|3         |Carla Mendes|carla@gmail.com|        |               |Belém   |2026-10-12 20:56:36.702|
 		|4         |Diego Alves |diego@gmail.com|        |               |Marabá  |2026-10-12 20:56:36.702|
-	
+
+		
+
+38. Retorne os produtos com preço maior que R$ 300.00 e estoque maior que 20 unidades.
+	Consulta:
+				
+		SELECT * FROM produtos  prod 
+			WHERE prod.preco_unitario  > 300.00 AND prod.estoque  > 20;
+	Output:
+		|id_produto|nome_produto |categoria    |preco_unitario|estoque|descricao|ativo|
+		|----------|-------------|-------------|--------------|-------|---------|-----|
+		|4         |Headset Gamer|Áudio        |320           |25     |         |true |
+		|5         |SSD 1 TB     |Armazenamento|480           |40     |         |true |
+
+39. Escreva uma consulta que classifique os produtos como CARO, quando o preço for maior que R$ 500.00; MÉDIO, quando o preço estiver entre R$ 100.00 e R$ 500.00; e BARATO, quando for menor que R$ 100.00.
+	Consulta:
+		SELECT *, 
+			CASE
+				WHEN preco_unitario < 100.00 THEN 'Barato'
+				WHEN preco_unitario >100.00 AND p.preco_unitario < 500.00 THEN 'Médio'
+				WHEN preco_unitario > 500 THEN 'Caro'
+			END AS classificacao_preco
+		FROM produtos p;
+	Output:
+		|id_produto|nome_produto    |categoria    |preco_unitario|estoque|descricao|ativo|classificacao_preco|
+		|----------|----------------|-------------|--------------|-------|---------|-----|-------------------|
+		|1         |Teclado Mecânico|Periférico   |250           |30     |         |true |Médio              |
+		|2         |Mouse Sem Fio   |Periférico   |90            |50     |         |true |Barato             |
+		|3         |Monitor 24"     |Monitores    |850           |15     |         |true |Caro               |
+		|4         |Headset Gamer   |Áudio        |320           |25     |         |true |Médio              |
+		|5         |SSD 1 TB        |Armazenamento|480           |40     |         |true |Médio              |
+
+40. Retorne os clientes cujo e-mail termine com @email.com.
+	Consulta:
+		SELECT * FROM clientes c
+			WHERE c.email  LIKE   '%@email.com';
+	Output:
+		Nenhum dado foi retornado pois não há nenhum registro em que o atributo email termine com email.com.
 

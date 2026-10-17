@@ -150,4 +150,20 @@ SELECT * FROM pedidos p
 SELECT * FROM clientes c 
 	WHERE  c.telefone  IS NULL;
 	
+SELECT * FROM produtos p 
+	WHERE p.categoria  <> 'Monitores';
 
+
+
+SELECT * FROM clientes c
+	WHERE c.email  LIKE   '%@email.com';
+
+
+
+SELECT *, 
+	CASE
+		WHEN preco_unitario < 100.00 THEN 'Barato'
+		WHEN preco_unitario >100.00 AND p.preco_unitario < 500.00 THEN 'Médio'
+		WHEN preco_unitario > 500 THEN 'Caro'
+	END AS classificacao_preco
+FROM produtos p;
