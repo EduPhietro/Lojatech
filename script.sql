@@ -220,3 +220,83 @@ WHERE id_cliente = 2
       FROM pedidos p 
       WHERE p.id_cliente = clientes.id_cliente
   ) = 0;
+
+SELECT 
+    p.id_pedido, 
+    p.data_pedido, 
+    c.nome
+FROM pedidos p 
+LEFT JOIN clientes c 
+    ON p.id_cliente = c.id_cliente;
+
+WITH total_por_produto AS (
+    SELECT
+        id_produto, 
+        SUM(quantidade) AS quantidade_total
+    FROM itens_pedido ip 
+    GROUP BY id_produto 
+)
+SELECT 
+    p.nome_produto,
+    p.preco_unitario,
+    COALESCE(tpp.quantidade_total, 0) AS quantidade_vendida_total
+FROM produtos p  
+LEFT JOIN total_por_produto tpp 
+    ON p.id_produto = tpp.id_produto;
+
+SELECT 
+    c.nome,
+    prod.nome_produto
+FROM itens_pedido ip
+LEFT JOIN pedidos p 
+    ON p.id_pedido = ip.id_pedido
+LEFT JOIN clientes c 
+    ON p.id_cliente = c.id_cliente
+LEFT JOIN produtos prod 
+    ON ip.id_produto = prod.id_produto
+WHERE c.nome = 'Ana Souza';
+
+WITH valor_total AS (
+    SELECT
+        ip.id_pedido,
+        SUM(p.preco_unitario * ip.quantidade) AS valor_total
+    FROM itens_pedido ip 
+    LEFT JOIN produtos p 
+        ON ip.id_produto = p.id_produto 
+    GROUP BY ip.id_pedido
+)
+SELECT 
+    c.nome,
+    p.id_pedido,
+    COALESCE(tv.valor_total, 0) AS valor_total  
+FROM pedidos p 
+LEFT JOIN valor_total tv 
+    ON p.id_pedido = tv.id_pedido
+LEFT JOIN clientes c 
+    ON p.id_cliente = c.id_cliente;
+
+WITH produtos_distintos AS (
+    SELECT DISTINCT 
+        ip.id_produto 
+    FROM itens_pedido ip
+)
+SELECT  
+    p.id_produto,
+    p.nome_produto
+FROM produtos p
+LEFT JOIN produtos_distintos pd 
+    ON pd.id_produto = p.id_produto 
+WHERE pd.id_produto IS NULL;
+
+SELECT 
+    c.nome,
+    p.id_pedido,
+    prod.nome_produto,
+    COALESCE(prod.preco_unitario * ip.quantidade, 0) AS valor_total  
+FROM itens_pedido ip
+LEFT JOIN pedidos p 
+    ON ip.id_pedido = p.id_pedido
+LEFT JOIN clientes c 
+    ON p.id_cliente = c.id_cliente
+LEFT JOIN produtos prod 
+    ON ip.id_produto = prod.id_produto;
