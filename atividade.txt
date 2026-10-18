@@ -452,3 +452,16 @@ em sistemas comerciais.
 		      FROM pedidos p 
 		      WHERE p.id_cliente = clientes.id_cliente
 		  ) = 0;
+
+
+49. Explique porque o comando abaixo é perigoso:
+	DELETE FROM produtos;
+	
+	R: O comando acima é perigoso porque deletará todos os registros, limpando as tuplas da entidade. Se usado de forma indevida, ele poderá causar perca parcial ou total dos dados.
+	Se não houver nenhum backup, poderá prejudicar a integridade dos dados ou outras relações.
+
+50. Explique a diferença entre executar um comando UPDATE ou DELETE com e sem a cláusula WHERE.
+	A clausula WHERE é utilizada para updades e deletes condicionais, deletando apenas registros que atendem a condições específicas.
+
+
+	
