@@ -687,3 +687,41 @@ em sistemas comerciais.
 				|4      |2        |4         |2         |320           |4         |Headset Gamer   |Audio        |320           |25     |         |true |
 				|       |         |          |          |              |5         |SSD 1 TB        |Armazenamento|480           |40     |         |true |
 
+
+
+60. Retorne a quantidade total de clientes cadastrados.
+
+	Consulta:
+		SELECT COUNT(*) FROM clientes c;
+	Output:
+		4
+
+61. Retorne a quantidade total de produtos cadastrados.
+	Consulta;
+		SELECT COUNT(*) AS produtos_cadastrados FROM produtos p;
+	Output:
+		5
+62. Retorne o preco medio dos produtos cadastrados.
+	Consulta:
+		SELECT AVG(preco_unitario) AS preco_medio FROM produtos p;
+	Output:
+		R$ 399.00
+
+63. Retorne o preco do produto mais barado.
+
+	Consulta:
+		SELECT MIN(preco_unitario) AS preco_barato FROM produtos p;
+	Output:
+		R$ 95.00
+64. Retorne o preco do produto mais caro.
+	Consulta:
+		SELECT MAX(preco_unitario) AS preco_caro FROM produtos p;
+	Output:
+		R$ 850.00
+65. Retorne a soma total das unidades em estoque.
+	Consulta:
+		SELECT SUM(estoque) AS soma_estoque FROM produtos p;
+
+	Output:
+		155
+

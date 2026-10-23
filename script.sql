@@ -311,3 +311,18 @@ SELECT * FROM pedidos ped
             
         WHERE prod.categoria  ='Armazenamento'
     );
+
+SELECT COUNT(*) AS quantidade_clientes FROM clientes;
+
+SELECT COUNT(*) AS produtos_cadastrados FROM produtos p;
+
+
+SELECT AVG(preco_unitario) AS preco_medio FROM produtos p;
+
+
+SELECT MIN(preco_unitario) AS preco_barato FROM produtos p;
+
+SELECT MAX(preco_unitario) AS preco_caro FROM produtos p;
+
+SELECT SUM(estoque) AS soma_estoque FROM produtos p;
+
