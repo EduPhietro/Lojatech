@@ -300,3 +300,14 @@ LEFT JOIN clientes c
     ON p.id_cliente = c.id_cliente
 LEFT JOIN produtos prod 
     ON ip.id_produto = prod.id_produto;
+
+
+SELECT * FROM pedidos ped 
+    WHERE ped.id_pedido  IN (
+        SELECT ip.id_pedido  FROM itens_pedido ip 
+            INNER JOIN pedidos p ON ip.id_pedido  = p.id_pedido 
+            INNER  JOIN produtos prod ON ip.id_produto  = prod.id_produto 
+            
+            
+        WHERE prod.categoria  ='Armazenamento'
+    );

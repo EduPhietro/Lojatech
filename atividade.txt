@@ -615,9 +615,75 @@ em sistemas comerciais.
 		|Bruno Lima|2        |Headset Gamer   |640        |
 
 58. Retorne os pedidos que contêm pelo menos um produto da categoria Armazenamento.
+	Consulta:
+		SELECT * FROM pedidos ped 
+		    WHERE ped.id_pedido  IN (
+			SELECT ip.id_pedido  FROM itens_pedido ip 
+			    INNER JOIN pedidos p ON ip.id_pedido  = p.id_pedido 
+			    INNER  JOIN produtos prod ON ip.id_produto  = prod.id_produto 
+			    
+			    
+			WHERE prod.categoria  ='Armazenamento'
+		    );
 
+	Output:
+		Nao houve saida, o pedido que continha algo da categoria armazenamento foi deletado em uma questao anterior.
 
 59. Diferencie INNER JOIN, LEFT JOIN, RIGTH JOIN e FULL JOIN. Apresente um exemplo prático de uso para cada tipo.
+	R:
+		INNER JOIN: Retorna apenas os registros que contem correspondencia.
+			Exemplo:	
+				SELECT * FROM clientes c 
+    					INNER JOIN pedidos p  ON c.id_cliente = p.id_cliente;
+			Output:
+				|id_cliente|nome        |email          |telefone|data_nascimento|cidade  |data_cadastro          |id_pedido|id_cliente|data_pedido            |status|valor_total|
+				|----------|------------|---------------|--------|---------------|--------|-----------------------|---------|----------|-----------------------|------|-----------|
+				|1         |Ana Souza   |ana@email.com  |        |               |Belém   |2026-10-22 21:08:09.229|1        |1         |2026-10-22 21:08:09.230|PAGO  |0          |
+				|3         |Carla Mendes|carla@email.com|        |               |Belém   |2026-10-22 21:08:09.229|3        |3         |2026-10-22 21:08:09.230|PAGO  |0          |
+				|2         |Bruno Lima  |bruno@email.com|        |               |Santarém|2026-10-22 21:08:09.229|2        |2         |2026-10-22 21:08:09.230|PAGO  |0          |
 
 
+		LEFT JOIN: Retorna os registros orfaos da tabela esquerda, e os que tem correspondencia
+
+			Exemplo:
+				
+				SELECT * FROM clientes c 
+				    LEFT JOIN pedidos p  ON c.id_cliente = p.id_cliente;		
+
+			Output:
+				|id_cliente|nome        |email          |telefone|data_nascimento|cidade   |data_cadastro          |id_pedido|id_cliente|data_pedido            |status|valor_total|
+				|----------|------------|---------------|--------|---------------|---------|-----------------------|---------|----------|-----------------------|------|-----------|
+				|1         |Ana Souza   |ana@email.com  |        |               |Belém    |2026-10-22 21:08:09.229|1        |1         |2026-10-22 21:08:09.230|PAGO  |0          |
+				|3         |Carla Mendes|carla@email.com|        |               |Belém    |2026-10-22 21:08:09.229|3        |3         |2026-10-22 21:08:09.230|PAGO  |0          |
+				|2         |Bruno Lima  |bruno@email.com|        |               |Santarém |2026-10-22 21:08:09.229|2        |2         |2026-10-22 21:08:09.230|PAGO  |0          |
+				|4         |Diego Alves |diego@email.com|        |               |Ananideua|2026-10-22 21:08:09.229|         |          |                       |      |           |
+
+		RIGTH JOIN: Retorna os registeos orfaos da tabela direita, e os que tem correspondencia
+			Exemplo:
+				SELECT * FROM itens_pedido ip 
+				    RIGHT JOIN produtos p ON p.id_produto = ip.id_produto; 
+
+			Output:
+				|id_item|id_pedido|id_produto|quantidade|preco_unitario|id_produto|nome_produto    |categoria    |preco_unitario|estoque|descricao|ativo|
+				|-------|---------|----------|----------|--------------|----------|----------------|-------------|--------------|-------|---------|-----|
+				|1      |1        |1         |2         |250           |1         |Teclado Mecânico|Periféricos  |250           |30     |         |true |
+				|2      |1        |2         |1         |90            |2         |Mouse Sem Fio   |Periféricos  |95            |50     |         |true |
+				|3      |2        |3         |1         |850           |3         |Monitor 24"     |Monitores    |850           |10     |         |true |
+				|4      |2        |4         |2         |320           |4         |Headset Gamer   |Audio        |320           |25     |         |true |
+				|       |         |          |          |              |5         |SSD 1 TB        |Armazenamento|480           |40     |         |true |
+
+		FULL JOIN: Retorna todos os registros que ambas as tabelas.
+
+			Exemplo:
+				SELECT * FROM itens_pedido ip 
+				    FULL JOIN produtos p ON p.id_produto = ip.id_produto;
+
+			Output:
+				|id_item|id_pedido|id_produto|quantidade|preco_unitario|id_produto|nome_produto    |categoria    |preco_unitario|estoque|descricao|ativo|
+				|-------|---------|----------|----------|--------------|----------|----------------|-------------|--------------|-------|---------|-----|
+				|1      |1        |1         |2         |250           |1         |Teclado Mecânico|Periféricos  |250           |30     |         |true |
+				|2      |1        |2         |1         |90            |2         |Mouse Sem Fio   |Periféricos  |95            |50     |         |true |
+				|3      |2        |3         |1         |850           |3         |Monitor 24"     |Monitores    |850           |10     |         |true |
+				|4      |2        |4         |2         |320           |4         |Headset Gamer   |Audio        |320           |25     |         |true |
+				|       |         |          |          |              |5         |SSD 1 TB        |Armazenamento|480           |40     |         |true |
 
