@@ -383,9 +383,10 @@ SELECT
     ip.id_item,
     ip.preco_unitario,
     ip.quantidade,
-    (ip.preco_unitario * ip.quantidade) AS total_pago
+    SUM(ip.preco_unitario * ip.quantidade) AS total_pago
 FROM itens_pedido ip
-INNER JOIN produtos p ON ip.id_produto = p.id_produto;
+         INNER JOIN produtos p ON ip.id_produto = p.id_produto
+GROUP BY  p.id_produto, p.nome_produto,ip.id_item, ip.preco_unitario, ip.quantidade;
 
 -- 67. Retorne a quantidade de pedidos realizados por cada cliente.
 SELECT c.id_cliente, c.nome, COUNT(p) AS total_pedidos FROM pedidos p
