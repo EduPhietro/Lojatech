@@ -724,4 +724,115 @@ em sistemas comerciais.
 
 	Output:
 		155
+66. Retorne o valor total de todos os itens vendidos, considerando  quantidade * preco_unitario.
+
+	Consulta:
+		SELECT 
+		    p.id_produto, 
+		    p.nome_produto, 
+		    ip.id_item, 
+		    ip.preco_unitario, 
+		    ip.quantidade, 
+		    (ip.preco_unitario * ip.quantidade) AS total_pago 
+		FROM itens_pedido ip
+		INNER JOIN produtos p ON ip.id_produto = p.id_produto;	
+	Output:
+		+----------+----------------+-------+--------------+----------+----------+
+		|id_produto|nome_produto    |id_item|preco_unitario|quantidade|total_pago|
+		+----------+----------------+-------+--------------+----------+----------+
+		|1         |Teclado Mecânico|1      |250.00        |2         |500       |
+		|2         |Mouse Sem Fio   |2      |90.00         |1         |90        |
+		|3         |Monitor 24"     |3      |850.00        |1         |850       |
+		|4         |Headset Gamer   |4      |320.00        |2         |640       |
+		+----------+----------------+-------+--------------+----------+----------+
+
+67. Retorne a quantidade de pedidos realizados por cada cliente.
+
+	Consulta:
+		SELECT c.id_cliente, c.nome, COUNT(p) AS total_pedidos FROM pedidos p
+		LEFT JOIN clientes c ON p.id_cliente = c.id_cliente
+		GROUP BY  c.id_cliente
+		ORDER BY id_cliente;
+	Ouput:
+		+----------+------------+-------------+
+		|id_cliente|nome        |total_pedidos|
+		+----------+------------+-------------+
+		|1         |Ana Souza   |1            |
+		|2         |Bruno Lima  |1            |
+		|3         |Carla Mendes|1            |
+		+----------+------------+-------------+
+
+
+68. Retorne a quantidade de produtos por categoria.
+
+	Consulta: 
+		SELECT 
+			p.categoria,
+			COUNT(p) AS qtd_produtos 
+		FROM produtos p
+
+		GROUP BY 
+			p.categoria;
+
+
+	Output:
+		+-------------+------------+
+		|categoria    |qtd_produtos|
+		+-------------+------------+
+		|Audio        |1           |
+		|Armazenamento|1           |
+		|Monitores    |1           |
+		|Periféricos  |2           |
+		+-------------+------------+
+
+69. Retorne o valor médio dos itens por pedido.
+
+	Consulta:
+		SELECT c.id_cliente,
+		       c.nome,
+		       ip.id_pedido,
+		       AVG(COALESCE(ip.preco_unitario,0.0)) AS valor_medio
+		FROM itens_pedido ip
+
+			 LEFT JOIN
+		     pedidos p ON p.id_pedido = ip.id_pedido
+			JOIN clientes  c ON p.id_cliente = c.id_cliente
+
+		GROUP BY
+		    ip.id_pedido, c.id_cliente, c.nome;
+	Output:
+		+----------+----------+---------+-----------+
+		|id_cliente|nome      |id_pedido|valor_medio|
+		+----------+----------+---------+-----------+
+		|1         |Ana Souza |1        |170        |
+		|2         |Bruno Lima|2        |585        |
+		+----------+----------+---------+-----------+
+70. Retorne a quantidade de pedidos com status PAGO.
+
+	Consulta:
+		SELECT COUNT(p) AS quantidade_pago FROM pedidos p
+		WHERE
+		    p.status = 'PAGO';
+	Output:
+		+---------------+
+		|quantidade_pago|
+		+---------------+
+		|3              |
+		+---------------+
+71. Retorne o valor máximo, o valor mínimo e o preço médio dos produtos.
+
+	Consulta:
+		SELECT MAX(p.preco_unitario) AS preco_max, 
+		       MIN(p.preco_unitario) AS preco_min, 
+		       AVG(p.preco_unitario) AS preco_medio 
+		FROM produtos p;
+	Output:
+		+---------+---------+-----------+
+		|preco_max|preco_min|preco_medio|
+		+---------+---------+-----------+
+		|850      |95       |399        |
+		+---------+---------+-----------+
+72. Explique a diferença entre COUNT(*) e COUNT(coluna).
+
+	R: O COUNT(*) conta todas as tuplas de uma entidade incluindo as que contém valores NULL, o COUNT(coluna)  conta apenas as ocorrências diferentes de NULL.
 

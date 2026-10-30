@@ -326,3 +326,46 @@ SELECT MAX(preco_unitario) AS preco_caro FROM produtos p;
 
 SELECT SUM(estoque) AS soma_estoque FROM produtos p;
 
+
+SELECT
+    p.id_produto,
+    p.nome_produto,
+    ip.id_item,
+    ip.preco_unitario,
+    ip.quantidade,
+    (ip.preco_unitario * ip.quantidade) AS total_pago
+FROM itens_pedido ip
+
+INNER JOIN produtos p ON ip.id_produto = p.id_produto;
+
+SELECT c.id_cliente, c.nome, COUNT(p) AS total_pedidos FROM pedidos p
+LEFT JOIN clientes c ON p.id_cliente = c.id_cliente
+GROUP BY  c.id_cliente
+ORDER BY id_cliente;
+
+SELECT p.categoria, COUNT(p) AS qtd_produtos FROM produtos p
+
+GROUP BY p.categoria;
+
+SELECT c.id_cliente,
+       c.nome,
+       ip.id_pedido,
+       AVG(COALESCE(ip.preco_unitario,0.0)) AS valor_medio
+FROM itens_pedido ip
+
+         LEFT JOIN
+     pedidos p ON p.id_pedido = ip.id_pedido
+        JOIN clientes  c ON p.id_cliente = c.id_cliente
+
+GROUP BY
+    ip.id_pedido, c.id_cliente, c.nome;
+
+SELECT COUNT(p) AS quantidade_pago FROM pedidos p
+WHERE
+    p.status = 'PAGO';
+
+
+SELECT MAX(p.preco_unitario) AS preco_max,
+       MIN(p.preco_unitario) AS preco_min,
+       AVG(p.preco_unitario) AS preco_medio
+FROM produtos p;
