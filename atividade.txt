@@ -1,4 +1,4 @@
-========================================================================
+=======================================================================
 ATIVIDADE PRÁTICA (FIXAÇÃO): LOJATECH
 ========================================================================
 
@@ -798,3 +798,81 @@ BLOCO 9. FUNÇÕES DE AGREGAÇÃO
 
 72. Explique a diferença entre COUNT(*) e COUNT(coluna).
 	R: O COUNT(*) conta todas as tuplas de uma entidade incluindo as que contém valores NULL, o COUNT(coluna)  conta apenas as ocorrências diferentes de NULL.
+
+
+========================================================================
+BLOCO 10. AGRUPAMENTOS
+========================================================================
+
+73. Retorne a quantidade de produtos por categoria.
+	Consulta:
+		SELECT p.categoria,COUNT(p.nome_produto) FROM produtos p
+		GROUP BY p.categoria;
+	Output:
+		+-------------+-----+
+		|categoria    |count|
+		+-------------+-----+
+		|Armazenamento|1    |
+		|Monitores    |1    |
+		|Periférico   |2    |
+		|Áudio        |1    |
+		+-------------+-----+
+
+74. Retorne o preço médio dos produtos por categoria.
+	
+75. Retorne a soma do estoque por categoria.
+
+76. Retorne a quantidade de pedidos por clientes.
+
+
+77. Retorne o valor total dos itens por pedido.
+
+78. Retorne a quantidade total de produtos vendidos por pedido.
+
+79. Retorne apenas as categorias que possuem mais de um produto.
+
+80. Retorne apenas os clientes que realizaram mais de um pedido.
+
+81. Retorne apenas os pedidos cujo valor total dos itens seja maior que R$ 500,00.
+
+
+82. Retorne as categorias cuja soma de estoques seja maior que 50 unidades.
+
+83. Retorne a quantidade de pedidos por status.
+
+84. Retorne a quantidade de pedidos por cliente, considerando somente pedidos com status PAGO.
+
+85. Diferencie WHERE e HAVING, explicando em qual momento cada cláusula atua na consulta.
+
+========================================================================
+BLOCO 11. DESAFIO FINAL
+========================================================================
+A LojaTech deseja analisar suas vendas. Escreva consultas SQL para responder às seguindes questões:
+
+1. Quais são os cinco produtos mais vendidos, considerando a soma das quantidades vendidas? 
+
+2. Qual cliente realizou o maior número de pedidos?
+
+3. Qual categoria gerou a maior receita, considerando quantidade * preco_unitario?
+
+
+4. Quais clientes realizaram pedidos, mas ainda não possuem nenhum pedido com status PAGO?
+
+
+5. Quais produtos possuem estoque abaixo de 20 unidades e já foram vendidos pelo menos uma vez?
+
+
+6. Qual é o ticket médio por pedido, considerando o valor total dos itens de cada pedido?
+
+
+7. Liste os clientes, seus pedidos, e o valor total de cada pedido, incluindo clientes que não realizaram pedidos.
+
+8. Liste os produtos que nunca foram vendidos.
+
+
+9. Apresente um relatório por categoria contendo: quantidade de produtos vendidos, valor médio dos produtos, estoque total receita total gerada pelas vendas.
+
+
+10. Apresente apenas as categorias cuja receita total seja maior que R$ 500,00.
+
+
